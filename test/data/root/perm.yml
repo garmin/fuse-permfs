@@ -1,0 +1,6 @@
+/:
+  uid: 10
+  gid: 10
+  dmode: 0777
+  fmode: 0775
+

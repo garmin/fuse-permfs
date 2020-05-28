@@ -1,0 +1,12 @@
+children:
+  subdir:
+    uid: 10
+    gid: 10
+    dmode: 0775
+    fmode: 0765
+
+  subdir2:
+    uid: 20
+    gid: 20
+    dmode: 0757
+    fmode: 0776

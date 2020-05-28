@@ -1,0 +1,10 @@
+children:
+  '*.bin':
+    uid: 10
+    gid: 10
+    fmode: 0664
+
+  subdir2:
+    uid: 10
+    gid: 10
+    fmode: 0755

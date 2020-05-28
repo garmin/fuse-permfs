@@ -1,0 +1,46 @@
+#
+# Keys in this section match any file or directory that is a direct child of
+# the current directory by comparing the key against the child name
+#
+children:
+  # Matches any file or direction that is a child of the current directory with
+  # a name of "node". If the item is a directory, any attributes apply to the
+  # directory and all it's children recursively. Otherwise, they only apply to
+  # the file itself.
+  #
+  # Any attribute that is not specified is inherited from the parent
+  node:
+    # Set the owner to be UID 100. Must be an integer
+    uid: 100
+
+    # Set the group to be GID 100. Must be an integer
+    gid: 100
+
+    # If the item is a file, does nothing. If the item is a directory it is its
+    # mode, and the mode applied to all child directories, recursively. Must be
+    # an octal integer
+    dmode: 0775
+
+    # If the item is a file, this will be the mode. If the item is a directory,
+    # it is the mode applied to all child non-directories, recursively. Must be
+    # an octal integer
+    fmode: 0664
+
+
+  # The matching string can also be a pattern as match by man(3) fnmatch().
+  # Quoting is necessary to prevent YAML thinking it is an anchor. Note that
+  # patterns on non-directories only apply to the current children of this
+  # directory (e.g. not recursive)
+  "*.py":
+    fmode: 0755
+
+# The root permissions are defined with a special entry named "/" in the
+# toplevel perm.yml file (since the root node doesn't have a parent). This
+# effectively overrides the default permissions that permfs would apply if
+# none are specified
+/:
+  uid: 200
+  gid: 200
+  fmode: 0664
+  dmode: 0775
+

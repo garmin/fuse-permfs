@@ -1,0 +1,15 @@
+build/
+*.bak
+*.swp
+*~
+*.suo
+*.ncb
+*.user
+*.i
+*.idb
+*.pdb
+*.tar.bz2
+*.log
+test/logs/
+test/mount/
+__pycache__

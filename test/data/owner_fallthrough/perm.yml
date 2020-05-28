@@ -1,0 +1,21 @@
+/:
+  uid: 10
+  gid: 10
+  fmode: 0644
+  dmode: 0755
+
+children:
+  both:
+    fmode: 0664
+    dmode: 0775
+
+  uid:
+    gid: 20
+    fmode: 0664
+    dmode: 0775
+
+  gid:
+    uid: 20
+    fmode: 0664
+    dmode: 0775
+
