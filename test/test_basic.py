@@ -26,7 +26,7 @@ import unittest
 
 THIS_DIR = os.path.dirname(__file__)
 
-SEARCH_PATHS = ["."] + os.environ.get("SEARCH_PATHS", "").split()
+SEARCH_PATHS = os.environ.get("SEARCH_PATHS", "").split()
 
 FileStat = collections.namedtuple("FileStat", ["uid", "gid", "mode"])
 
@@ -70,8 +70,7 @@ class TestPermFS(unittest.TestCase):
     def setUp(self):
         self.permfs = None
 
-        for path in SEARCH_PATHS:
-            p = os.path.join(path, "permfs")
+        for p in SEARCH_PATHS:
             if os.path.exists(p):
                 self.permfs = os.path.abspath(p)
                 break

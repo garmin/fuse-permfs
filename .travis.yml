@@ -1,0 +1,37 @@
+dist: focal
+language: cpp
+os: linux
+addons:
+  apt:
+    packages:
+      - fuse3
+      - libfuse3-dev
+      - libyaml-cpp-dev
+matrix:
+  include:
+    - env: CC=gcc
+    - env: CC=clang
+install:
+  - pip3 install meson ninja black
+script:
+  - black --check .
+  - |
+    git ls-files '*.cpp' '*.hpp' '*.c' '*.h' | xargs clang-format -i
+    test -z "$(git ls-files --modified)"
+  - meson builddir
+  - meson compile -C builddir
+  - meson test -C builddir
+after_failure:
+  - |
+    if [ -d test/logs ]; then
+        for l in test/logs/*.txt; do
+            echo $l:
+            cat $l
+            echo
+            echo
+        done
+    fi
+    if [ -e builddir/meson-logs/testlog.txt ]; then
+        cat builddir/meson-logs/testlog.txt
+    fi
+

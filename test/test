@@ -16,7 +16,7 @@
 
 THIS_DIR=$(dirname $0)
 
-export SEARCH_PATHS="$SEARCH_PATHS $(pwd)"
+export SEARCH_PATHS="$SEARCH_PATHS $(pwd)/permfs"
 
 cd $THIS_DIR
 python3 -m unittest "$@"

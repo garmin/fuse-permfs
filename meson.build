@@ -31,6 +31,8 @@ runner = find_program('test/test')
 list_tests = find_program('test/list_tests.py')
 r = run_command(list_tests)
 foreach t: r.stdout().split()
-    test(t, runner, args: ['--verbose', t])
+    test(t, runner, args: ['--verbose', t], env: [
+        'SEARCH_PATHS=' + permfs.full_path()
+    ])
 endforeach
 
