@@ -1,0 +1,77 @@
+name: build
+on:
+  - push
+  - pull_request
+
+jobs:
+  check:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install packages
+        run: |
+          sudo apt install -y clang-format
+
+      - name: Install python packages
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install black
+
+      - name: Check python code
+        run: |
+          black --check .
+
+      - name: Check code with clang-format
+        run: |
+          git ls-files '*.cpp' '*.hpp' '*.c' '*.h' | xargs clang-format -i
+          test -z "$(git ls-files --modified)"
+
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        cxx:
+          - g++
+          - clang++
+
+    runs-on: ubuntu-20.04
+
+    env:
+      CXX: ${{ matrix.cxx }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          sudo apt install \
+            fuse3 \
+            libfuse3-dev \
+            libyaml-cpp-dev
+
+      - name: Install python packages
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install meson ninja
+
+      - name: Configure
+        run: |
+          meson builddir
+
+      - name: Compile
+        run: |
+          meson compile -C builddir
+
+      - name: Test
+        run: |
+          meson test -C builddir
+

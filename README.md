@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/garmin/fuse-permfs.svg?branch=master)](https://travis-ci.com/garmin/fuse-permfs)
+[![Build Status](https://github.com/garmin/fuse-permfs/workflows/build/badge.svg?branch=master&event=push)](https://github.com/garmin/fuse-permfs/actions?query=workflow%3Abuild+event%3Apush+branch%3Amaster)
 # FUSE Permissions
 
 Implements a pass through FUSE driver that reads YAML files to report different
